@@ -1,0 +1,134 @@
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(255, 255, 255, 0.3);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --muted-color: #6c757d;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e9ecef;
+    --card-bg: rgba(30, 30, 30, 0.95);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --muted-color: #adb5bd;
+    --primary-color: #5a72f5;
+    --secondary-color: #4a54e6;
+}
+
+[data-theme="dark"] .alert-primary {
+    background-color: rgba(67, 97, 238, 0.2);
+    border-color: rgba(67, 97, 238, 0.3);
+    color: #a6b5ff;
+}
+
+/* Remove this media query because we'll handle it via data-theme attribute */
+@media (prefers-color-scheme: dark) {
+    /* We'll use JS to detect and set the attribute initially */
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.glass-container {
+    max-width: 800px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+}
+
+.input-card {
+    background: var(--card-bg);
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.input-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+.gradient-btn {
+    background: var(--gradient);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.result-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.score-badge {
+    background: var(--gradient);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+}
+
+.progress-custom {
+    height: 8px;
+    border-radius: 4px;
+}
+
+.text-muted {
+    color: var(--muted-color) !important;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+/* New styles for visualization */
+.visualization-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* Theme toggle button styling */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}

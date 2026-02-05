@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,135 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
     <!-- Chart.js for visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --border-color: rgba(255, 255, 255, 0.3);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --muted-color: #6c757d;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1a1a1a;
-                --text-color: #e9ecef;
-                --card-bg: rgba(30, 30, 30, 0.95);
-                --border-color: rgba(255, 255, 255, 0.1);
-                --shadow-color: rgba(0, 0, 0, 0.3);
-                --muted-color: #adb5bd;
-                --primary-color: #5a72f5;
-                --secondary-color: #4a54e6;
-            }
-            
-            .alert-primary {
-                background-color: rgba(67, 97, 238, 0.2);
-                border-color: rgba(67, 97, 238, 0.3);
-                color: #a6b5ff;
-            }
-        }
-
-        body {
-            background: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .glass-container {
-            max-width: 800px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-        }
-
-        .input-card {
-            background: var(--card-bg);
-            border: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px var(--shadow-color);
-        }
-
-        .input-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px var(--shadow-color);
-        }
-
-        .gradient-btn {
-            background: var(--gradient);
-            border: none;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .gradient-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .result-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-        }
-
-        .score-badge {
-            background: var(--gradient);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-        }
-
-        .progress-custom {
-            height: 8px;
-            border-radius: 4px;
-        }
-        
-        .text-muted {
-            color: var(--muted-color) !important;
-        }
-        
-        .form-control {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.15);
-            color: var(--text-color);
-        }
-        
-        .form-control:focus {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: var(--primary-color);
-            color: var(--text-color);
-        }
-        
-        /* New styles for visualization */
-        .visualization-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-    </style>
 </head>
 <body class="d-flex align-items-center py-4">
-    <!-- Seluruh kode HTML asli tetap dipertahankan di bawah ini -->
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="btn btn-outline-secondary rounded-circle theme-toggle shadow-sm" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="container glass-container p-4 my-4">
         <!-- Header Section -->
         <div class="text-center mb-5">
@@ -144,8 +26,7 @@
                 <i class="fas fa-calculator fa-3x text-primary"></i>
             </div>
             <h1 class="display-5 fw-bold mb-2">Kalkulator Skor SNBT</h1>
-<!--             <p class="lead text-muted mb-3">Hitung skor UTBK-mu dengan presisi</p> -->
-<!--             <div class="score-badge d-inline-block">Oleh @fleursincostan</div> -->
+            <p class="lead text-muted mb-3">Hitung prediksi skor UTBK-mu dengan mudah</p>
         </div>
 
         <!-- Input Section -->
@@ -153,21 +34,22 @@
             <!-- PPU -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-book me-2"></i>PPU (20 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Pengetahuan dan Pemahaman Umum</div>
                     <input type="number" id="ppu" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="20" required>
                 </div>
             </div>
 
-            <!-- Repeat similar structure for other inputs -->
             <!-- PU -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-brain me-2"></i>PU (30 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Penalaran Umum</div>
                     <input type="number" id="pu" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="30" required>
                 </div>
@@ -176,9 +58,10 @@
             <!-- PBM -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-pen-alt me-2"></i>PBM (20 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Pemahaman Bacaan dan Menulis</div>
                     <input type="number" id="pbm" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="20" required>
                 </div>
@@ -187,9 +70,10 @@
             <!-- PK -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-calculator me-2"></i>PK (20 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Pengetahuan Kuantitatif</div>
                     <input type="number" id="pk" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="20" required>
                 </div>
@@ -198,9 +82,10 @@
             <!-- LBI -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-flag me-2"></i>LBI (30 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Literasi Bahasa Indonesia</div>
                     <input type="number" id="lbi" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="30" required>
                 </div>
@@ -209,9 +94,10 @@
             <!-- PM -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-shapes me-2"></i>PM (20 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Penalaran Matematika</div>
                     <input type="number" id="pm" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="20" required>
                 </div>
@@ -220,20 +106,30 @@
             <!-- LBE -->
             <div class="col-12 col-md-6">
                 <div class="input-card p-3">
-                    <label class="form-label fw-bold small text-uppercase text-muted mb-2">
+                    <label class="form-label fw-bold small text-uppercase text-muted mb-0">
                         <i class="fas fa-globe me-2"></i>LBE (20 Soal)
                     </label>
+                    <div class="small text-muted mb-2 fst-italic">Literasi Bahasa Inggris</div>
                     <input type="number" id="lbe" class="form-control form-control-lg" 
                            placeholder="0" min="0" max="20" required>
                 </div>
             </div>
         </div>
 
-        <!-- Calculate Button -->
-        <button type="button" class="btn btn-lg gradient-btn text-white w-100 py-3 fw-bold mb-4" 
-                onclick="calculateScore()">
-            <i class="fas fa-calculator me-2"></i>Hitung Skor Sekarang
-        </button>
+        <!-- Action Buttons -->
+        <div class="row g-2 mb-4">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-lg gradient-btn text-white w-100 py-3 fw-bold"
+                        onclick="calculateScore()">
+                    <i class="fas fa-calculator me-2"></i>Hitung Skor Sekarang
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" id="reset-btn" class="btn btn-lg btn-outline-secondary w-100 py-3 fw-bold">
+                    <i class="fas fa-undo me-2"></i>Reset
+                </button>
+            </div>
+        </div>
 
         <!-- Result Section -->
         <div id="result" class="result-card p-4 d-none">
@@ -268,10 +164,10 @@
                 </div>
             </div>
             
-            <!-- New Visualization Section -->
+            <!-- Visualization Section -->
             <div id="visualization" class="visualization-card mt-4 d-none">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="mb-0"><i class="fas fa-chart-line me-2"></i>Visualisasi Perbandingan</h4>
+                    <h4 class="mb-0"><i class="fas fa-chart-line me-2"></i>Visualisasi</h4>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="changeChartType('bar')">Bar</button>
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="changeChartType('radar')">Radar</button>
@@ -285,205 +181,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5 text-muted small">
+            <p>&copy; 2023 Kalkulator Skor SNBT. Dibuat untuk membantu pejuang PTN.</p>
+        </footer>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Script asli tetap sama
-        function calculateScore() {
-            const subtests = {
-                ppu: { maxQuestions: 20, maxScore: 875.92, minScore: 159.87 },
-                pu: { maxQuestions: 30, maxScore: 886.12, minScore: 131.21 },
-                pbm: { maxQuestions: 20, maxScore: 857.13, minScore: 160.53 },
-                pk: { maxQuestions: 20, maxScore: 1000.0, minScore: 192.00 },
-                lbi: { maxQuestions: 30, maxScore: 870.76, minScore: 126.31 },
-                pm: { maxQuestions: 20, maxScore: 1000.0, minScore: 242.38 },
-                lbe: { maxQuestions: 20, maxScore: 885.75, minScore: 233.76 }
-            };
-
-            let totalScore = 0;
-            let valid = true;
-            let scoresHTML = "";
-            
-            // Array to store calculated scores for visualization
-            let calculatedScores = {};
-
-            for (const [key, data] of Object.entries(subtests)) {
-                const inputElement = document.getElementById(key);
-                const correctAnswers = parseInt(inputElement.value) || 0;
-
-                if (correctAnswers < 0 || correctAnswers > data.maxQuestions) {
-                    alert(`Nilai untuk ${key.toUpperCase()} harus antara 0 dan ${data.maxQuestions}.`);
-                    valid = false;
-                    inputElement.focus();
-                    break;
-                }
-
-                const scoreRange = data.maxScore - data.minScore;
-                const score = data.minScore + (correctAnswers / data.maxQuestions) * scoreRange;
-                
-                // Store the calculated score for visualization
-                calculatedScores[key] = {
-                    score: score,
-                    maxScore: data.maxScore
-                };
-                
-                scoresHTML += `
-                    <div class="col-12 col-md-6">
-                        <div class="input-card p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-0">${key.toUpperCase()}</h6>
-                                    <small class="text-muted">Max: ${data.maxScore.toFixed(2)}</small>
-                                </div>
-                                <div class="text-primary fw-bold">${score.toFixed(2)}</div>
-                            </div>
-                            <div class="progress progress-custom mt-2">
-                                <div class="progress-bar bg-primary" 
-                                     style="width: ${(score/data.maxScore)*100}%"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                totalScore += score;
-            }
-
-            if (!valid) return;
-
-            const averageScore = totalScore / Object.keys(subtests).length;
-            const resultDiv = document.getElementById("result");
-            
-            // Update results
-            document.getElementById("scores").innerHTML = scoresHTML;
-            document.getElementById("averageScore").textContent = averageScore.toFixed(2);
-            
-            // Update progress bar
-            const maxPossible = 1000; // Assuming max possible average score
-            const progress = (averageScore/maxPossible)*100;
-            document.getElementById("scoreProgress").style.width = `${progress}%`;
-            document.getElementById("progressPercentage").textContent = `${progress.toFixed(1)}%`;
-
-            // Show result section
-            resultDiv.classList.remove('d-none');
-            
-            // Generate visualization
-            createVisualization(calculatedScores);
-        }
-        
-        // Global variable for the chart
-        let scoreChart = null;
-        let currentChartType = 'bar';
-        
-        // Function to create visualization
-        function createVisualization(scores) {
-            const visualizationDiv = document.getElementById("visualization");
-            visualizationDiv.classList.remove('d-none');
-            
-            const ctx = document.getElementById('scoreChart').getContext('2d');
-            
-            // Extract labels and data from scores
-            const labels = Object.keys(scores).map(key => key.toUpperCase());
-            const userScores = Object.values(scores).map(item => item.score);
-            const maxScores = Object.values(scores).map(item => item.maxScore);
-            
-            // If chart already exists, destroy it
-            if (scoreChart) {
-                scoreChart.destroy();
-            }
-            
-            // Get color settings based on light/dark mode
-            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-            const textColor = isDarkMode ? '#e9ecef' : '#212529';
-            
-            // Create chart
-            scoreChart = new Chart(ctx, {
-                type: currentChartType,
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Skor Anda',
-                            data: userScores,
-                            backgroundColor: 'rgba(67, 97, 238, 0.5)',
-                            borderColor: 'rgba(67, 97, 238, 1)',
-                            borderWidth: 2,
-                            pointBackgroundColor: 'rgba(67, 97, 238, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(67, 97, 238, 1)'
-                        },
-                        {
-                            label: 'Skor Maksimum',
-                            data: maxScores,
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            borderWidth: 2,
-                            pointBackgroundColor: 'rgba(153, 102, 255, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(153, 102, 255, 1)'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            grid: {
-                                color: gridColor
-                            },
-                            angleLines: {
-                                color: gridColor
-                            },
-                            pointLabels: {
-                                color: textColor
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: textColor
-                            },
-                            grid: {
-                                color: gridColor
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: textColor
-                            },
-                            grid: {
-                                color: gridColor
-                            },
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: textColor
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Function to change chart type
-        function changeChartType(type) {
-            currentChartType = type;
-            // Recalculate scores to update the chart
-            calculateScore();
-        }
-        
-        // Listen for color scheme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (scoreChart) {
-                calculateScore(); // Re-render chart with new color scheme
-            }
-        });
-    </script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
 </body>
 </html>
