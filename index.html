@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator Skor SNBT</title>
-    <!-- Google Fonts - Inter -->
+    <meta name="description" content="Hitung prediksi skor UTBK-mu dengan mudah - Kalkulator Skor SNBT">
+    <meta name="theme-color" content="#4361ee">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Google Fonts - Inter (with offline fallback) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -197,6 +201,22 @@
             <p>&copy; 2023 Kalkulator Skor SNBT. Dibuat untuk membantu pejuang PTN.</p>
         </footer>
     </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        // Register Service Worker for offline functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 
     <!-- Custom JS -->
     <script src="script.js"></script>
