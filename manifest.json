@@ -1,24 +1,25 @@
 {
   "name": "Kalkulator Skor SNBT",
   "short_name": "Skor SNBT",
-  "description": "Hitung prediksi skor UTBK-mu dengan mudah",
-  "start_url": "./index.html",
+  "description": "Hitung prediksi skor UTBK dengan antarmuka yang bersih, ringan, dan siap offline.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f8f9fa",
-  "theme_color": "#4361ee",
+  "background_color": "#f5f7f4",
+  "theme_color": "#2f7c8c",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%234361ee' rx='100'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='256' fill='white'>📊</text></svg>",
-      "sizes": "192x192",
+      "src": "./assets/icons/icon.svg",
+      "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%234361ee' rx='100'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='256' fill='white'>📊</text></svg>",
-      "sizes": "512x512",
+      "src": "./assets/icons/icon-maskable.svg",
+      "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ],
   "categories": ["education", "utilities"],

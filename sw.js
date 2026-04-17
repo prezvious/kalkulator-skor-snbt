@@ -1,117 +1,82 @@
-// Service Worker for Kalkulator Skor SNBT - Offline Functionality
-const CACHE_NAME = 'snbt-calculator-v1';
+const CACHE_NAME = "snbt-calculator-v2";
 const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './style.css',
-  './script.js',
-  './manifest.json'
+  "./",
+  "./index.html",
+  "./style.css",
+  "./script.js",
+  "./manifest.json",
+  "./assets/vendor/chart.umd.min.js",
+  "./assets/fonts/plus-jakarta-sans-latin.woff2",
+  "./assets/fonts/sora-latin.woff2",
+  "./assets/icons/favicon.svg",
+  "./assets/icons/icon.svg",
+  "./assets/icons/icon-maskable.svg"
 ];
 
-// Install Event - Cache assets
-self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Installing...');
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[Service Worker] Caching app shell');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
-      .then(() => {
-        console.log('[Service Worker] Installation complete, skipping waiting');
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error('[Service Worker] Cache failed:', error);
-      })
+      .then((cache) => cache.addAll(ASSETS_TO_CACHE))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Activate Event - Clean up old caches
-self.addEventListener('activate', (event) => {
-  console.log('[Service Worker] Activating...');
+self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME) {
-              console.log('[Service Worker] Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-      .then(() => {
-        console.log('[Service Worker] Activation complete, claiming clients');
-        return self.clients.claim();
-      })
+      .then((cacheNames) => Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+
+          return Promise.resolve();
+        })
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
-// Fetch Event - Serve from cache, fallback to network
-self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") {
     return;
   }
 
-  // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          // Return cached response
-          console.log('[Service Worker] Serving from cache:', event.request.url);
-          return cachedResponse;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+          return networkResponse;
         }
 
-        // Not in cache, fetch from network
-        console.log('[Service Worker] Fetching from network:', event.request.url);
-        return fetch(event.request)
-          .then((networkResponse) => {
-            // Check if valid response
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-              return networkResponse;
-            }
+        const responseToCache = networkResponse.clone();
 
-            // Clone the response for caching
-            const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
 
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+        return networkResponse;
+      }).catch(() => {
+        if (event.request.mode === "navigate") {
+          return caches.match("./index.html");
+        }
 
-            return networkResponse;
-          })
-          .catch((error) => {
-            console.error('[Service Worker] Fetch failed:', error);
-            
-            // Return offline fallback for navigation requests
-            if (event.request.mode === 'navigate') {
-              return caches.match('./index.html');
-            }
-            
-            // Return a generic offline response for other requests
-            return new Response('Offline - Content not available', {
-              status: 503,
-              statusText: 'Service Unavailable'
-            });
-          });
-      })
+        return new Response("Offline - konten belum tersedia.", {
+          status: 503,
+          statusText: "Service Unavailable",
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
+          }
+        });
+      });
+    })
   );
 });
-
-// Message Event - Handle messages from main thread
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
-
-console.log('[Service Worker] Service Worker loaded');

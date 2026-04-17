@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="fav-panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f7c8c"></stop>
+      <stop offset="100%" stop-color="#17313a"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="34" fill="#f5f7f4"></rect>
+  <rect x="10" y="10" width="108" height="108" rx="30" fill="url(#fav-panel)"></rect>
+  <rect x="38" y="28" width="52" height="26" rx="8" fill="#dbe8e3"></rect>
+  <rect x="28" y="22" width="72" height="82" rx="12" fill="none" stroke="#eef4f2" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"></rect>
+  <rect x="40" y="32" width="48" height="18" rx="5" fill="none" stroke="#17313a" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"></rect>
+  <g fill="#eef4f2">
+    <circle cx="42" cy="70" r="6"></circle>
+    <circle cx="64" cy="70" r="6"></circle>
+    <circle cx="86" cy="70" r="6"></circle>
+    <circle cx="42" cy="90" r="6"></circle>
+    <circle cx="64" cy="90" r="6"></circle>
+    <circle cx="86" cy="90" r="6"></circle>
+  </g>
+</svg>

@@ -1,1 +1,18 @@
-Nothing should be ignored in this case, as the changes consist only of source/config files (.md, .json, .js, .html) with no build artifacts, dependencies, or temporary files present.
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Logs / temp
+*.log
+*.tmp
+
+# Screenshots (local only)
+*.png
+*.jpg
+*.jpeg
